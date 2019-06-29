@@ -37,8 +37,9 @@ def get_robot_reply(question):
 if __name__ == '__main__':
     # 测试get_robot_reply函数
     while True:
-        sc = input("(输入(退出)即可退出聊天)你： ")       
-        if sc == "退出":
+        question = input("(输入(退出)即可退出聊天)我说： ")       
+        if question == "退出":
             break
-        print(get_robot_reply(sc))
+        answer = get_robot_reply(question)
+        print("小魔仙说：%s"%answer)
         
