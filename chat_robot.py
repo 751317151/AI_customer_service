@@ -15,12 +15,12 @@ from bs4 import BeautifulSoup
 app = flask.Flask(__name__)
 
 def get_robot_reply(msg):
-    if  "你叫什么名字" in msg.content:
+    if  "名字" in msg.content:
         answer = "华豪"
-    elif "你们小组编号" in msg.content:
+    elif "小组编号" in msg.content:
         answer = "02"
-    elif "你们小组成员" in msg.content:
-        answer = "杨涵越（组长），华豪，邹鹏程，许金仓，张诚，王清洋"
+    elif "小组成员" in msg.content:
+        answer = "杨涵越（组长），华豪，邹鹏程，许金仓，张诚，王清洋，李书宽"
     elif "最新军事新闻头条" in msg.content:
         answer = NEWS() 
     else:    
