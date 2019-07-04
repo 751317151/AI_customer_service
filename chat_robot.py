@@ -16,7 +16,11 @@ import random
 app = flask.Flask(__name__)
 
 def get_robot_reply(msg):
-    if "你叫什么"or"名字"or"你是谁" in msg.content:
+    if "你叫什么" in msg.content:
+        answer = "洋葱骑士"
+    elif "你名字" in msg.content:
+        answer = "洋葱骑士"
+    elif "你是谁" in msg.content:
         answer = "洋葱骑士"
     elif "小组编号" in msg.content:
         answer = "02"
