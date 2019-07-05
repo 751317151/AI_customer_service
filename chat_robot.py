@@ -12,6 +12,8 @@ from wechatpy.replies import TextReply,ImageReply
 import urllib     
 from bs4 import BeautifulSoup
 import random 
+import io
+import qrcode
 
 app = flask.Flask(__name__)
 
@@ -28,6 +30,9 @@ def get_robot_reply(msg):
         answer = "杨涵越（组长），华豪，邹鹏程，许金仓，张诚，王清洋，李书宽"
     elif "军事新闻" in msg.content:
         answer = NEWS() 
+    # elif "二维码" in msg.content:
+    #     answer = "请输入你要生成的内容："
+    #     qr()
     else:    
         try:
             # 调用NLP接口实现智能回复
@@ -106,6 +111,23 @@ def image_reply(msg):
     
     return reply.render()
 
+@app.route('/')
+def home():
+    return flask.render_template('qr_tool.html')
+
+@app.route('/qr')
+def qr():
+    # 第一步：获取要生成二维码的数据
+    data = flask.request.args.get("data")
+    
+    # 第二步：生成二维码图片
+    img = qrcode.make(data)
+    bi = io.BytesIO()  # 创建一个BytesIO对象，用于在内存中存储二维码图像数据
+    img.save(bi, "png")  # 调用img对象的save方法将二维码图像数据以PNG编码格式写入bi对象管理的内存空间
+    bi.seek(0)  # 将bi对象内部的位置指针移动到图像数据的起始位置
+
+    # 第三步：返回二维码图像数据
+    return flask.send_file(bi, "image/png")
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port="80")
